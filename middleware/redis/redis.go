@@ -10,13 +10,31 @@ import (
 var Ctx = context.Background()
 
 var RdbTest *redis.Client
+var UserFollowings *redis.Client
+var UserFollowers *redis.Client
+var UserFriends *redis.Client
 
 // InitRedis 初始化 Redis 连接，redis 默认 16 个 DB
 func InitRedis() {
 	RdbTest = redis.NewClient(&redis.Options{
-		Addr:     "ip:port",
-		Password: "redis-password",
+		Addr:     "106.14.252.145:6739",
+		Password: "tiktok123",
 		DB:       0,
+	})
+	UserFollowings = redis.NewClient(&redis.Options{
+		Addr:     "106.14.252.145:6739",
+		Password: "tiktok123",
+		DB:       11,
+	})
+	UserFollowers = redis.NewClient(&redis.Options{
+		Addr:     "106.14.252.145:6739",
+		Password: "tiktok123",
+		DB:       12,
+	})
+	UserFriends = redis.NewClient(&redis.Options{
+		Addr:     "106.14.252.145:6739",
+		Password: "tiktok123",
+		DB:       13,
 	})
 }
 
