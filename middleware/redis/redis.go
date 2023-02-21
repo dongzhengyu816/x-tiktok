@@ -10,35 +10,65 @@ import (
 var Ctx = context.Background()
 var NilError = redis.Nil
 var RdbTest *redis.Client
+
+// UserFollowings 根据用户id找到他关注的人
 var UserFollowings *redis.Client
+
+// UserFollowers 根据用户id找到他的粉丝
 var UserFollowers *redis.Client
+
+// UserFriends 根据用户id找到他的好友
 var UserFriends *redis.Client
 
+// RdbVCid 存储video与comment的关系
+var RdbVCid *redis.Client
+
+// RdbCVid 根据commentId找videoId
+var RdbCVid *redis.Client
+
+// RdbCIdComment 根据commentId 找comment
+var RdbCIdComment *redis.Client
+
 const (
-	prodRedisAddress  = ""
-	prodRedisPassword = ""
+	ProdRedisAddr = "ip:port"
+	ProRedisPwd   = "redis-passwd"
 )
 
 // InitRedis 初始化 Redis 连接，redis 默认 16 个 DB
 func InitRedis() {
 	RdbTest = redis.NewClient(&redis.Options{
-		Addr:     "106.14.252.145:6739",
-		Password: "tiktok123",
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
 		DB:       0,
 	})
+	RdbVCid = redis.NewClient(&redis.Options{
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
+		DB:       1,
+	})
+	RdbCVid = redis.NewClient(&redis.Options{
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
+		DB:       2,
+	})
+	RdbCIdComment = redis.NewClient(&redis.Options{
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
+		DB:       3,
+	})
 	UserFollowings = redis.NewClient(&redis.Options{
-		Addr:     prodRedisAddress,
-		Password: prodRedisPassword,
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
 		DB:       11,
 	})
 	UserFollowers = redis.NewClient(&redis.Options{
-		Addr:     prodRedisAddress,
-		Password: prodRedisPassword,
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
 		DB:       12,
 	})
 	UserFriends = redis.NewClient(&redis.Options{
-		Addr:     prodRedisAddress,
-		Password: prodRedisPassword,
+		Addr:     ProdRedisAddr,
+		Password: ProRedisPwd,
 		DB:       13,
 	})
 }
